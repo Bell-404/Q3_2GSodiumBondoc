@@ -1,0 +1,21 @@
+* {
+    background-color: rgb(232, 196, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+fieldset {
+    background-color: white;
+    border-radius: 5%;
+    border-color: black;
+    margin: 10px;
+}
+
+label {
+    background-color: white;
+}
+
+input {
+    background-color: white;
+}

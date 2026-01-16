@@ -2,37 +2,35 @@
 <html>
     <head>
         <title>2nd Graded Excercise</title>
+        <link rel='stylesheet' href='2GStyle.css'>
     </head>
 
     <body>
-        <form action="submit.html" method="post">
+        <form action="submit" method="post" onsubmit="return confirm('Are you sure you want to submit the form?')"
+        onreset="return confirm('Are you sure you want to reset the form?')">
             <fieldset>
                 <legend>Student Information</legend>
 
                 <label for="studentID">Student ID : </label><br>
-                <input id="studentID" name="studentID" type="number" required><br>
+                <input id="studentID" name="studentID" type="number" required onblur="if(this.value===''){this.style.border='2px solid red'; this.nextElementSibling.style.display='inline';} else {this.style.border=''; this.nextElementSibling.style.display='none';}"><span style="color:red; display:none;"> Required</span><br>
 
                 <label for="fullname">Full Name : </label><br>
-                <input id="fullname" name="fullname" type="text" required><br>
+                <input id="fullname" name="fullname" type="text" required onblur="if(this.value===''){this.style.border='2px solid red'; this.nextElementSibling.style.display='inline';} else {this.style.border=''; this.nextElementSibling.style.display='none';}"><span style="color:red; display:none;"> Required</span><br>
 
                 <label for="bday">Birthday : </label><br>
-                <input id="bday" name="bday" type="date" required></br>
+                <input id="bday" name="bday" type="date" required onblur="if(this.value===''){this.style.border='2px solid red'; this.nextElementSibling.style.display='inline';} else {this.style.border=''; this.nextElementSibling.style.display='none';}"><span style="color:red; display:none;"> Required</span></br>
 
                 <label for="email">Email Address : </label><br>
-                <input id="email" name="email" type="email" required></br>
+                <input id="email" name="email" type="email" required onblur="if(this.value===''){this.style.border='2px solid red'; this.nextElementSibling.style.display='inline';} else {this.style.border=''; this.nextElementSibling.style.display='none';}"><span style="color:red; display:none;"> Required</span></br>
             </fieldset>
             
             <fieldset>
-                <legend>Contact Information</legend>
-
                 <label for="phone">Mobile Phone : </label><br>
-                <input id="phone" name="phone" type="text" required></br>
+                <input id="phone" name="phone" type="text" required onblur="if(this.value===''){this.style.border='2px solid red'; this.nextElementSibling.style.display='inline';} else {this.style.border=''; this.nextElementSibling.style.display='none';}"><span style="color:red; display:none;"> Required</span></br>
     
-                <label for="home">Intern</label><br>
-                <input type="radio" id="intern" name="home" value="intern"></br>
-    
-                <label for="home">Extern</label><br>
-                <input type="radio" id="extern" name="home" value="extern"><br></br>
+                <input type="radio" id="intern" name="home" value="intern"><label for="home">Intern</label></br>
+
+                <input type="radio" id="extern" name="home" value="extern"><label for="home">Extern</label></br>
 
                 <label for="club">Preferred Organization/Club</label></br>
                 <select name="club" id="club">
@@ -46,18 +44,12 @@
             </fieldset>
 
             <label for="reason">Why do you want to join?</label><br>
-            <textarea id="reason" name="reason" rows="4" cols="50" required></textarea><br>
+            <textarea id="reason" name="reason" rows="4" cols="50"></textarea><br>
 
             <input type="reset" value="Reset">
+
             <input type="submit" value="Submit">
-
             
-
-
-
-
-
-
 
             </form>
     </body>
