@@ -6,7 +6,7 @@
     </head>
 
     <body>
-        <form action="submit" method="post" onsubmit="return confirm('Are you sure you want to submit the form?')"
+        <form onsubmit="return confirm('Are you sure you want to submit the form?')"
         onreset="return confirm('Are you sure you want to reset the form?')">
             <fieldset>
                 <legend>Student Information</legend>
@@ -67,5 +67,43 @@
                 </div>
             </div>
             </form>
+        <br><br>
+        <h2>Club Sign-Ups</h2>
+        <ul id="list"></ul>
     </body>
+
+    <script>
+        // Helpers for localStorage
+        const KEY = 'signups';
+
+        function loadSignups() {
+            const raw = localStorage.getItem(KEY);
+            if (raw) {
+                return JSON.parse(raw);
+            }
+            else {
+                return [];
+            }
+        }
+
+        function saveSignUps(entries) {
+            localStorage.setItem(KEY, JSON.stringify(entries));
+        }
+
+        // Render list to the page
+        function render() {
+            const signups = loadSignups();
+            const list = document.getElementById('list');
+            if (signups.length === 0) {
+                list.innerHTML = '<li><b>No sign-ups for the club</b></li>';
+                return;
+            }
+            let output = "";
+            for (let i = 0; i < signups.length; i++) {
+                output += `<li>
+                   <i>${escapeHtml(signups[i].name)}</i> (${signups[i].time}) — ${escapeHtml(signups[i].club)}
+                 </li>`;
+            }
+        }
+    </script>
 </html>
