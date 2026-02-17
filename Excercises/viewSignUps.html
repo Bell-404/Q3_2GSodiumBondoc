@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Sign Ups</title>
+        <link rel="stylesheet" href="viewSignUps.css">
+    </head>
+
+    <body>
+        <h1>Club Sign-Ups</h1>
+        <h3>by Bell Bondoc</h3>
+        <button><a href = "Q3_2GSodiumBondoc.html">Back to Sign-Up Form</a></button><br><br>
+        <label for="search">Search by Club: </label>
+            <select id="clubFilter">
+                <option value="all">All Clubs</option>
+                <option value="music">Music Club</option>
+                <option value="art">Art Club</option>              
+                <option value="sports">Sports Club</option>             
+                <option value="math">Math Club</option>
+                <option value="science">Science Club</option>
+                <option value="lit">Literature Club</option>
+            </select>
+        <p>Total Signups : <span id="signUpsCount"></span></p>
+        
+        <table id="signUpsTable">
+            <tr>
+                <th>Club</th>
+                <th>ID</th>
+                <th>Fullname</th>
+                <th>Email Address</th>
+                <th>Mobile Phone</th>
+                <th>Birthday</th>
+                <th>Intern/Extern</th>
+
+            </tr>
+            <!-- data rows will be inserted here -->
+        </table>
+        <p id="noSignUpsMessage"></p>
+
+    </body>
+    
+    <script>
+        let allSignUps = [];
+        
+        function displaySignUps(filterClub = 'all') {
+            const table = document.getElementById('signUpsTable');
+            // Remove all rows except the header
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+            
+            let displayCount = 0;
+            
+            // Display filtered data
+            allSignUps.forEach(signup => {
+                if (filterClub === 'all' || signup.club === filterClub) {
+                    const row = table.insertRow();
+                    row.insertCell(0).textContent = signup.club;
+                    row.insertCell(1).textContent = signup.studentID;
+                    row.insertCell(2).textContent = signup.fullname;
+                    row.insertCell(3).textContent = signup.email;
+                    row.insertCell(4).textContent = signup.phone;
+                    row.insertCell(5).textContent = signup.bday;
+                    row.insertCell(6).textContent = signup.home;
+                    displayCount++;
+                }
+                if (displayCount === 0) {
+                    document.getElementById('noSignUpsMessage').textContent = 'No sign-ups for this club.';
+                }
+            });
+            
+            document.getElementById('signUpsCount').textContent = displayCount;
+        }
+        
+        // Load data from localStorage
+        const rawData = localStorage.getItem('allSignUps');
+        if (rawData) {
+            allSignUps = JSON.parse(rawData);
+        }
+        
+        // Display all signups on page load
+        displaySignUps();
+        
+        // Add event listener to filter select
+        document.getElementById('clubFilter').addEventListener('change', function(event) {
+            displaySignUps(event.target.value);
+        });
+    </script>
+
+</html>
