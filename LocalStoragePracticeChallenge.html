@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Local Storage Practice Challenge</title>
+    </head>
+
+    <body>
+        <h1>Local Storage Practice Challenge</h1>
+        <form>
+            <input type="text" id="userName" placeholder="Enter your name"><br>
+            <input type="text" id="userSecret" placeholder="Enter a secret"><br>
+            <input type="submit" id="saveButton" value="Save to your secret!">
+        </form>
+        <p>Saved Secrets : <span id="secretList"></span></p>
+    </body>
+    
+    <script>
+        //1. on load: check "vault" (localstorage)
+        const secret = localStorage.getItem("secret");
+        //2. if something is there, show it immediately, happens right after you click the submit button
+        if (secret) {
+            document.querySelector('#secretList').innerText = secret;
+        }
+        document.querySelector('#saveButton').addEventListener('click', () => {
+                event.preventDefault();
+                const name = document.querySelector('#userName').value;
+                const secret = document.querySelector('#userSecret').value;
+                const text = name + ": " + secret;
+                //3. the magic: save it to the vault (localStorage)
+                localStorage.setItem("secret", text);
+                //4. update the screen
+                document.querySelector('#secretList').innerText = text;
+            });
+    </script>
+</html>
