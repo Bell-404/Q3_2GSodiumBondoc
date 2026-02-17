@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Local Storage Demo pt 2</title>
+    </head>
+
+    <body>
+        <input type="text" id="userInput" placeholder="Type a secret..."> <!-- "userInput" is the ID of the data typed -->
+        <button id="saveButton">Save to Local Storage</button>
+        <p>Save Data : <span id="display"></span></p> <!-- the 'span' is where the data pops up -->
+    </body>
+
+    <script>
+        //1. ON LOAD : Check the "Vault" (LocalStorage)
+        const savedSecret = localStorage.getItem("mySecret"); // "mySecret" is the key for the data stored in localStorage
+
+        //2. If something is there, show it immediately
+        if (savedSecret) { //if (savedSecret) means "if savedSecret is has data inside it"
+            document.querySelector('#display').innerText = savedSecret;
+        }
+
+        document.querySelector('#saveButton').addEventListener('click', () => {
+            const text = document.querySelector('#userInput').value;
+            //3. THE MAGIC : Save it to the vault (localStorage)
+            localStorage.setItem("mySecret", text); // "mySecret" is the key, text is the value being stored in localStorage
+            //4. Update the screen
+            document.querySelector('#display').innerText = text;
+        });
+
+    </script>
+</html>
