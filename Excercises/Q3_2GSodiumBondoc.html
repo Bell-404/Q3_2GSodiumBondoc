@@ -6,8 +6,8 @@
     </head>
 
     <body>
-        <form onsubmit="return confirm('Are you sure you want to submit the form?')"
-        onreset="return confirm('Are you sure you want to reset the form?')">
+        <form method="post" onsubmit="return confirm('Are you sure you want to submit the form?')"
+        onreset="return confirm('Are you sure you want to reset the form?')" >
             <fieldset>
                 <legend>Student Information</legend>
                 
@@ -67,43 +67,40 @@
                 </div>
             </div>
             </form>
-        <br><br>
-        <h2>Club Sign-Ups</h2>
-        <ul id="list"></ul>
+            
+            <button><a href="viewSignUps.html">View Sign Ups</a></button>
+            
+            <script>
+                //save data to local storage
+                const form = document.querySelector('form');
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Prevent form submission
+                    const formData = {
+                        studentID: document.getElementById('studentID').value,
+                        fullname: document.getElementById('fullname').value,
+                        bday: document.getElementById('bday').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        home: document.querySelector('input[name="home"]:checked') ? document.querySelector('input[name="home"]:checked').value : '',
+                        club: document.getElementById('club').value,
+                        reason: document.getElementById('reason').value
+                    };
+
+                    // Get existing signups or create new array
+                    let allSignUps = [];
+                    const existingData = localStorage.getItem('allSignUps');
+                    if (existingData) {
+                        allSignUps = JSON.parse(existingData);
+                    }
+                    
+                    // Add new signup to array
+                    allSignUps.push(formData);
+                    
+                    //save to local storage
+                    localStorage.setItem('allSignUps', JSON.stringify(allSignUps));
+                    alert('Form submitted successfully!');
+                    form.reset(); // Reset the form after submission
+                });
+            </script>
     </body>
-
-    <script>
-        // Helpers for localStorage
-        const KEY = 'signups';
-
-        function loadSignups() {
-            const raw = localStorage.getItem(KEY);
-            if (raw) {
-                return JSON.parse(raw);
-            }
-            else {
-                return [];
-            }
-        }
-
-        function saveSignUps(entries) {
-            localStorage.setItem(KEY, JSON.stringify(entries));
-        }
-
-        // Render list to the page
-        function render() {
-            const signups = loadSignups();
-            const list = document.getElementById('list');
-            if (signups.length === 0) {
-                list.innerHTML = '<li><b>No sign-ups for the club</b></li>';
-                return;
-            }
-            let output = "";
-            for (let i = 0; i < signups.length; i++) {
-                output += `<li>
-                   <i>${escapeHtml(signups[i].name)}</i> (${signups[i].time}) — ${escapeHtml(signups[i].club)}
-                 </li>`;
-            }
-        }
-    </script>
 </html>
